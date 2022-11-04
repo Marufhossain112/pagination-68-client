@@ -10,12 +10,22 @@ import Product from "../Product/Product";
 import "./Shop.css";
 
 const Shop = () => {
-  const { products, count } = useLoaderData();
+  const [products, setProducts] = useState([]);
+  const [count, setCount] = useState(0);
   const [cart, setCart] = useState([]);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
 
   const pages = Math.ceil(count / size);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/products?page=${page}&size=${size}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCount(data.count);
+        setProducts(data.products);
+      });
+  }, [page,size]);
 
   const clearCart = () => {
     setCart([]);
@@ -72,18 +82,27 @@ const Shop = () => {
         </Cart>
       </div>
       <div className="pagination">
-      <p>You are now on {page}</p>
+        <p>
+          You are now on {page} and size : {size}
+        </p>
         {[...Array(pages).keys()].map((num) => (
-            
           <button
             onClick={() => setPage(num)}
             className={page === num && "selected"}
             key={num}
           >
-            
             {num}
           </button>
         ))}
+        <select onChange={(event) => setSize(event.target.value)} name="" id="">
+          <option value="5">5</option>
+          <option value="10" selected>
+            10
+          </option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+        </select>
       </div>
     </div>
   );
