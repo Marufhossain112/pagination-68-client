@@ -72,8 +72,17 @@ const Shop = () => {
         </Cart>
       </div>
       <div className="pagination">
+      <p>You are now on {page}</p>
         {[...Array(pages).keys()].map((num) => (
-          <button key={num}>{num}</button>
+            
+          <button
+            onClick={() => setPage(num)}
+            className={page === num && "selected"}
+            key={num}
+          >
+            
+            {num}
+          </button>
         ))}
       </div>
     </div>
