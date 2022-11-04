@@ -25,7 +25,7 @@ const Shop = () => {
         setCount(data.count);
         setProducts(data.products);
       });
-  }, [page,size]);
+  }, [page, size]);
 
   const clearCart = () => {
     setCart([]);
@@ -91,7 +91,7 @@ const Shop = () => {
             className={page === num && "selected"}
             key={num}
           >
-            {num}
+            {num + 1}
           </button>
         ))}
         <select onChange={(event) => setSize(event.target.value)} name="" id="">
