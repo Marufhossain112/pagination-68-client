@@ -13,7 +13,11 @@ const Orders = () => {
   const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`);
+    fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("genius-token")}`,
+      },
+    });
   }, [user?.email]);
 
   const handleRemoveItem = (id) => {
