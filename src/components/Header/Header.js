@@ -15,7 +15,7 @@ const Header = () => {
                 <Link to="/inventory">Inventory</Link>
                 <Link to="/about">About</Link>
                 {
-                    user?.uid ?
+                    user?.email ?
                         <button className='btn-logout' onClick={logOut}>Log out</button>
                         :
                         <>

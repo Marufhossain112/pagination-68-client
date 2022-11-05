@@ -37,7 +37,7 @@ const Shop = () => {
     const savedCart = [];
     // console.log(storedCart);
     const ids = Object.keys(storedCart);
-    console.log(ids);
+    // console.log(ids);
     fetch("http://localhost:5000/productsByIds", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -45,7 +45,7 @@ const Shop = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("by ids", data);
+        // console.log("by ids", data);
         for (const id in storedCart) {
           const addedProduct = data.find((product) => product._id === id);
           if (addedProduct) {
