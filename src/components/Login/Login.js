@@ -32,8 +32,12 @@ const Login = () => {
           body: JSON.stringify(currentUser),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data));
-        // navigate(from, {replace: true})
+          .then((data) => {
+            console.log(data);
+            // localStorage is the easiest but not the best option to store token
+            localStorage.setItem("genius-token", data.token);
+            navigate(from, {replace: true})
+          });
       })
       .catch((error) => console.error(error));
   };
