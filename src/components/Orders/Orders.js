@@ -17,7 +17,9 @@ const Orders = () => {
       headers: {
         authorization: `Bearer ${localStorage.getItem("genius-token")}`,
       },
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => setOrders(data));
   }, [user?.email]);
 
   const handleRemoveItem = (id) => {
