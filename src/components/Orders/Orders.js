@@ -10,7 +10,7 @@ import ReviewItem from "../ReviewItem/ReviewItem";
 const Orders = () => {
   const { initialCart } = useLoaderData(); // { products: products, initialCart: initialCart }
   const [cart, setCart] = useState(initialCart);
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     fetch(`http://localhost:5000/orders?email=${user?.email}`, {
@@ -18,8 +18,13 @@ const Orders = () => {
         authorization: `Bearer ${localStorage.getItem("genius-token")}`,
       },
     })
-      .then((res) => res.json())
-      .then((data) => setOrders(data));
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          logOut();
+        }
+        return res.json();
+      })
+      .then((data) => console.log(data));
   }, [user?.email]);
 
   const handleRemoveItem = (id) => {
